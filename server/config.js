@@ -25,7 +25,7 @@ module.exports = {
     // udp listening port, udp can only be used to publish messages
     udpPort: 8154,
     // websocket listening port
-    wsPort: 8155,
+    wsPort: process.env.PORT||3000,
     // max size of message frame, in chars(not bytes)
     maxFrameSize: 10000,
     // log level

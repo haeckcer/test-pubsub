@@ -42,8 +42,8 @@
     console.info('    shajunxing@gmail.com');
     console.info();
 
-    tcp.createServer(config.tcpPort, config.maxFrameSize);
-    udp.createServer(config.udpPort, config.maxFrameSize);
+    //tcp.createServer(config.tcpPort, config.maxFrameSize);
+    //udp.createServer(config.udpPort, config.maxFrameSize);
     ws.createServer(config.wsPort, config.maxFrameSize);
 
 }());

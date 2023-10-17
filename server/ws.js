@@ -16,8 +16,9 @@
  ***********************************************************************/
 
 "use strict";
+const { Worker } = require("worker_threads");
 
-(function () {
+(function() {
     var websocket = require('websocket');
     var http = require('http');
     var util = require('util');
@@ -26,10 +27,10 @@
     var exchange = require('./exchange');
 
     // create WebSocket server, returns server instance
-    exports.createServer = function (port, maxFrameSize) {
+    exports.createServer = function(port, maxFrameSize) {
         var httpServer = http.createServer();
 
-        httpServer.on('listening', function () {
+        httpServer.on('listening', function() {
             log.info(
                 'WS Server listening at %s:%d',
                 httpServer.address().address,
@@ -38,11 +39,11 @@
         });
 
         var wsServer = new websocket.server({
-            httpServer:httpServer,
-            maxReceivedMessageSize:maxFrameSize
+            httpServer: httpServer,
+            maxReceivedMessageSize: maxFrameSize
         });
 
-        wsServer.on('request', function (request) {
+        wsServer.on('request', function(request) {
             var connection = request.accept(null, request.origin);
 
             var address = util.format(
@@ -55,11 +56,11 @@
 
             var subscriptions = {};
 
-            var handlePublish = function (parsed) {
+            var handlePublish = function(parsed) {
                 exchange.push(parsed.content, parsed.destination);
             };
 
-            var handleSubscribe = function (parsed) {
+            var handleSubscribe = function(parsed) {
                 var destination = parsed.destination;
                 if (destination in subscriptions) {
                     throw new Error(util.format('Destination \'%s\' already exists', destination));
@@ -70,7 +71,7 @@
                 }
             };
 
-            var handleUnsubscribe = function (parsed) {
+            var handleUnsubscribe = function(parsed) {
                 var destination = parsed.destination;
                 if (destination in subscriptions) {
                     log.info('WS unsubscribe \'%s\' of %s', destination, address);
@@ -82,11 +83,11 @@
                 }
             };
 
-            var deliver = function (content, match) {
+            var deliver = function(content, match) {
                 connection.sendUTF(protocol.messageFrame(content, match));
             };
 
-            connection.on('message', function (message) {
+            connection.on('message', function(message) {
                 try {
                     if (message.type != 'utf8') {
                         throw new Error('Must be utf-8 format');
@@ -112,7 +113,7 @@
                 }
             });
 
-            connection.on('close', function (reasonCode, description) {
+            connection.on('close', function(reasonCode, description) {
                 log.info('WS connecion closed from %s', address);
                 // cleanup
                 log.info('WS cleanup all subscriptions of %s', address);
@@ -128,4 +129,3 @@
         return httpServer;
     };
 }());
-
