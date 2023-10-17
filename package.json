@@ -18,7 +18,7 @@
   "homepage": "https://github.com/shajunxing/Json_Messaging#readme",
   "dependencies": {
     "ws": "^7.5.3",
-    "uuid": "github:broofa/node-uuid",
-    "websocket": "git+https://theturtle32@github.com/Worlize/WebSocket-Node.git"
+   "uuid": "git+https://github.com/broofa/node-uuid",
+    "websocket": "git+https://github.com/theturtle32/WebSocket-Node"
   }
 }
