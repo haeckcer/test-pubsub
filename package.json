@@ -18,7 +18,7 @@
   "homepage": "https://github.com/shajunxing/Json_Messaging#readme",
   "dependencies": {
     "ws": "^7.5.3",
-   "uuid": "git+https://github.com/broofa/node-uuid",
+   "@loxjs/node-uuid": "^2.0.0",
     "websocket": "git+https://github.com/theturtle32/WebSocket-Node"
   }
 }
