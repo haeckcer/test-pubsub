@@ -19,6 +19,6 @@
   "dependencies": {
     "ws": "^7.5.3",
    "@loxjs/node-uuid": "^2.0.0",
-    "websocket": "git+https://github.com/theturtle32/WebSocket-Node"
+    "websocket": "github:theturtle32/WebSocket-Node"
   }
 }
